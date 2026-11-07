@@ -1,0 +1,143 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="description" content="Every upcoming UK Beyblade X event, with a direct link to its tickets.">
+<title>UK Beyblade Events</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Archivo+Black&family=Archivo:wght@400;600;700&display=swap">
+<style>
+html{-webkit-text-size-adjust:100%}*{box-sizing:border-box}body{margin:0}
+/* Layout: one narrow phone column — wordmark, then dated event rows, each with one big ticket button */
+:root{
+  --bg:#F3F5FA; --surface:#FFFFFF; --ink:#0B1B3F; --muted:#4A5675; --line:#D9DFEC;
+  --accent:#C8102E; --accent-ink:#FFFFFF; --chip:#E8ECF5;
+  --display:'Archivo Black','Arial Black',Impact,sans-serif;
+  --body:'Archivo',system-ui,-apple-system,'Segoe UI',sans-serif;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B1B3F; --surface:#16295A; --ink:#FFFFFF; --muted:#C9D3EA; --line:#2A3F73;
+  --accent:#E63946; --accent-ink:#FFFFFF; --chip:#22397A; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B1B3F; --surface:#16295A; --ink:#FFFFFF; --muted:#C9D3EA; --line:#2A3F73;
+  --accent:#E63946; --accent-ink:#FFFFFF; --chip:#22397A; color-scheme:dark}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:16px;line-height:1.45}
+.wrap{max-width:560px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px));padding-block:28px 40px;display:flex;flex-direction:column;gap:24px}
+header{display:flex;flex-direction:column;gap:6px}
+.eyebrow{font-weight:700;font-size:13px;letter-spacing:.22em;color:var(--accent);text-transform:uppercase}
+h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;margin:0;letter-spacing:-.01em;text-wrap:balance}
+.lede{color:var(--muted);margin:4px 0 0;font-size:16px}
+.list{display:flex;flex-direction:column;gap:12px}
+.ev{display:grid;grid-template-columns:72px minmax(0,1fr);gap:14px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.date{background:var(--accent);color:var(--accent-ink);border-radius:12px;display:flex;flex-direction:column;align-items:center;justify-content:center;padding:8px 0;align-self:start;font-variant-numeric:tabular-nums}
+.date .d{font-weight:700;font-size:12px;letter-spacing:.14em}
+.date .n{font-family:var(--display);font-size:30px;line-height:1}
+.info{display:flex;flex-direction:column;gap:6px;min-width:0}
+.info h2{font-family:var(--display);font-size:19px;line-height:1.1;margin:0;text-wrap:balance}
+.where{color:var(--muted);font-weight:600;font-size:15px}
+.chips{display:flex;flex-wrap:wrap;gap:6px}
+.chip{font-size:12.5px;font-weight:700;padding:4px 10px;border-radius:999px;background:var(--chip);color:var(--ink)}
+.btn{display:flex;align-items:center;justify-content:space-between;gap:8px;margin-top:4px;min-height:44px;padding:0 16px;border-radius:12px;background:var(--ink);color:var(--bg);font-weight:700;text-decoration:none;font-size:15px}
+.btn:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.btn .src{font-weight:600;opacity:.75;font-size:13px}
+.btn.closed{background:transparent;color:var(--muted);border:2px solid var(--line)}
+.empty{color:var(--muted);text-align:center;padding:24px 0}
+footer{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
+footer strong{color:var(--ink)}
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header>
+    <div class="eyebrow">Beyblade X · UK</div>
+    <h1>UK Beyblade Events</h1>
+    <p class="lede">Every upcoming event, with a link straight to its tickets.</p>
+  </header>
+
+  <main class="list" id="list">
+    <article class="ev" data-date="2026-11-08">
+      <div class="date"><span class="d">SUN</span><span class="n">08</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>Beyblade Battle Tournament</h2>
+        <div class="where">Stevenage · Lost Ark Games · 10am</div>
+        <div class="chips"><span class="chip">Ranked</span><span class="chip">BX-10</span><span class="chip">Junior &amp; Senior</span></div>
+        <a class="btn closed" href="https://www.eventbrite.co.uk/e/beyblade-battle-tournament-stevenage-tickets-2003561489349" target="_blank" rel="noopener">Tickets closed <span class="src">Eventbrite ↗</span></a>
+      </div>
+    </article>
+
+    <article class="ev" data-date="2026-11-08">
+      <div class="date"><span class="d">SUN</span><span class="n">08</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>Xecutive Battle League · Week 17</h2>
+        <div class="where">London · Paloma, Chelsea · 12pm</div>
+        <div class="chips"><span class="chip">League</span><span class="chip">WBO username needed</span><span class="chip">£10</span></div>
+        <a class="btn" href="https://www.beybladex.london/store/prod_8408531-Week-17-081126-Paloma-Chelsea.html" target="_blank" rel="noopener">Get tickets <span class="src">Beyblade X London ↗</span></a>
+      </div>
+    </article>
+
+    <article class="ev" data-date="2026-11-14">
+      <div class="date"><span class="d">SAT</span><span class="n">14</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>No Surrender: November</h2>
+        <div class="where">Bristol · Shredenhams · 10am</div>
+        <div class="chips"><span class="chip">128 players</span><span class="chip">£475+ prizes</span><span class="chip">£16.96</span></div>
+        <a class="btn" href="https://www.eventbrite.co.uk/e/no-surrender-november-beyblade-x-tournament-tickets-2002953633235" target="_blank" rel="noopener">Get tickets <span class="src">Eventbrite ↗</span></a>
+      </div>
+    </article>
+
+    <article class="ev" data-date="2026-11-15">
+      <div class="date"><span class="d">SUN</span><span class="n">15</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>GEARS Kids League</h2>
+        <div class="where">London · 370 Caledonian Rd, Islington · 11am</div>
+        <div class="chips"><span class="chip">Kids</span><span class="chip">Team event</span><span class="chip">£11 incl. meal</span></div>
+        <a class="btn" href="https://www.beybladex.london/store/prod_8369262-GEARS-Kids-League-151126.html" target="_blank" rel="noopener">Get tickets <span class="src">Beyblade X London ↗</span></a>
+      </div>
+    </article>
+
+    <article class="ev" data-date="2026-11-21">
+      <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>Beyblade Battle Tournament</h2>
+        <div class="where">London · Christ's College Finchley · 12pm</div>
+        <div class="chips"><span class="chip">Ranked</span><span class="chip">BX-10</span><span class="chip">Junior &amp; Senior</span><span class="chip">From £8.30</span></div>
+        <a class="btn" href="https://www.eventbrite.co.uk/e/beyblade-battle-tournament-london-tickets-2003516983230" target="_blank" rel="noopener">Get tickets <span class="src">Eventbrite ↗</span></a>
+      </div>
+    </article>
+
+    <article class="ev" data-date="2026-11-27">
+      <div class="date"><span class="d">FRI</span><span class="n">27</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>Spin 'n' Sip</h2>
+        <div class="where">London · Kiju Coffee House, SW8 · 6pm</div>
+        <div class="chips"><span class="chip">Evening event</span><span class="chip">£10 incl. £5 food voucher</span></div>
+        <a class="btn" href="https://www.beybladex.london/store/prod_8414052-Kiju-Coffee-House-Spin-n-Sip-271126.html" target="_blank" rel="noopener">Get tickets <span class="src">Beyblade X London ↗</span></a>
+      </div>
+    </article>
+
+    <p class="empty" id="empty" hidden>No upcoming events listed yet. Check back soon.</p>
+  </main>
+
+  <footer>
+    <div><strong>Running a UK event?</strong> Message us on Instagram to get it listed.</div>
+    <div>Details come from each organiser's ticket page. Check it before you travel.</div>
+    <div>Fan-run · not affiliated with Takara Tomy or Hasbro · Updated 7 Nov 2026</div>
+  </footer>
+</div>
+
+<script>
+(function(){
+  var now = new Date(); var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var shown = 0;
+  document.querySelectorAll('.ev').forEach(function(el){
+    var p = el.getAttribute('data-date').split('-');
+    var d = new Date(+p[0], +p[1]-1, +p[2]);
+    if (d < today) el.hidden = true; else shown++;
+  });
+  if (!shown) document.getElementById('empty').hidden = false;
+})();
+</script>
+</body>
+</html>
