@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261127-spin-n-sip@ukbeybladeevents.github.io
+DTSTAMP:20261110T235239Z
+DTSTART:20261127T180000
+DTEND:20261127T220000
+SUMMARY:Spin 'n' Sip
+LOCATION:London\, Kiju Coffee House\, SW8
+DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8414052-Kiju-Coffee-House-Spin-n-Sip-271126.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.beybladex.london/store/prod_8414052-Kiju-Coffee-House-Spin-n-Sip-271126.html
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Spin 'n' Sip tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR

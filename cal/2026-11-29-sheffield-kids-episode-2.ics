@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261129-sheffield-kids-episode-2@ukbeybladeevents.github.io
+DTSTAMP:20261110T235239Z
+DTSTART:20261129T120000
+DTEND:20261129T160000
+SUMMARY:Sheffield Kids Episode 2
+LOCATION:Sheffield\, Steel City Spinners
+DESCRIPTION:Tickets and details: https://challonge.com/nys34het\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://challonge.com/nys34het
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Sheffield Kids Episode 2 tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR

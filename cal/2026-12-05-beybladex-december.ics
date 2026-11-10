@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261205-beybladex-december@ukbeybladeevents.github.io
+DTSTAMP:20261110T235239Z
+DTSTART:20261205T123000
+DTEND:20261205T163000
+SUMMARY:BeybladeX December
+LOCATION:Nottingham\, Underworld Games
+DESCRIPTION:Tickets and details: https://underworldgames.co.uk/events/beybladex-december\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://underworldgames.co.uk/events/beybladex-december
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:BeybladeX December tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR

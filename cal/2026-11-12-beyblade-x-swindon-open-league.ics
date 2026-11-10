@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261112-beyblade-x-swindon-open-league@ukbeybladeevents.github.io
+DTSTAMP:20261110T235239Z
+DTSTART:20261112T183000
+DTEND:20261112T223000
+SUMMARY:Beyblade X Swindon Open League
+LOCATION:Swindon
+DESCRIPTION:Tickets and details: https://challonge.com/BBXSwindon_1211\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://challonge.com/BBXSwindon_1211
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Beyblade X Swindon Open League tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
