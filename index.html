@@ -62,6 +62,40 @@ h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;ma
 .btn .src{font-weight:600;opacity:.75;font-size:13px}
 .btn.closed{background:transparent;color:var(--muted);border:2px solid var(--line)}
 .empty{color:var(--muted);text-align:center;padding:24px 0}
+/* View toggle, calendar and add-to-calendar */
+.views{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--chip);border-radius:14px}
+.views button{all:unset;cursor:pointer;text-align:center;min-height:42px;line-height:42px;border-radius:10px;font-weight:700;font-size:15px;color:var(--muted)}
+.views button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(11,27,63,.15)}
+.views button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.cal{display:flex;flex-direction:column;gap:14px}
+.calcard{background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:14px}
+.calhead{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
+.calhead h2{font-family:var(--display);font-size:20px;margin:0}
+.calhead button{all:unset;cursor:pointer;width:44px;height:44px;display:grid;place-items:center;border-radius:12px;background:var(--chip);color:var(--ink);font-size:22px;font-weight:700}
+.calhead button:disabled{opacity:.3;cursor:default}
+.calhead button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.grid{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;text-align:center}
+.grid .wd{font-size:12px;font-weight:700;letter-spacing:.06em;color:var(--muted);padding-bottom:4px}
+.day{all:unset;box-sizing:border-box;position:relative;aspect-ratio:1/1;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:3px;border-radius:10px;font-weight:600;font-size:15px;color:var(--muted);font-variant-numeric:tabular-nums}
+.day.past{opacity:.35}
+.day.has{cursor:pointer;color:var(--ink);font-weight:800;background:var(--chip)}
+.day.has .dots{display:flex;gap:3px}
+.day.has .dots i{width:6px;height:6px;border-radius:50%;background:var(--accent)}
+.day.has .count{font-size:11px;font-weight:800;line-height:1;color:var(--accent)}
+.day.today{box-shadow:inset 0 0 0 2px var(--muted)}
+.day.sel{background:var(--accent);color:var(--accent-ink)}
+.day.sel .dots i{background:var(--accent-ink)}.day.sel .count{color:var(--accent-ink)}
+.day:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.daytitle{font-family:var(--display);font-size:18px;margin:4px 0 0}
+.daylist{display:flex;flex-direction:column;gap:12px}
+.add{margin-top:2px}
+.add summary{list-style:none;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:40px;font-weight:700;font-size:14px;color:var(--ink)}
+.add summary::-webkit-details-marker{display:none}
+.add summary:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.add .opts{display:flex;flex-wrap:wrap;gap:8px}
+.add .opts a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:10px;border:2px solid var(--line);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none}
+.add .opts a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.add .note{width:100%;font-size:12.5px;color:var(--muted)}
 footer{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
 footer strong{color:var(--ink)}
 </style>
@@ -77,6 +111,11 @@ footer strong{color:var(--ink)}
     <h1>UK Beyblade Events</h1>
     <p class="lede">Upcoming Beyblade X events across the UK, with a link straight to tickets.</p>
   </header>
+
+  <div class="views" role="group" aria-label="View">
+    <button type="button" id="v-list" aria-pressed="true">List</button>
+    <button type="button" id="v-cal" aria-pressed="false">Calendar</button>
+  </div>
 
   <main class="list" id="list">
     <article class="ev" data-date="2026-11-12">
@@ -212,6 +251,19 @@ footer strong{color:var(--ink)}
     <p class="empty" id="empty" hidden>No upcoming events listed yet. Check back soon.</p>
   </main>
 
+  <section class="cal" id="cal" hidden aria-label="Calendar">
+    <div class="calcard">
+      <div class="calhead">
+        <button type="button" id="prev" aria-label="Previous month">‹</button>
+        <h2 id="month"></h2>
+        <button type="button" id="next" aria-label="Next month">›</button>
+      </div>
+      <div class="grid" id="grid"></div>
+    </div>
+    <h3 class="daytitle" id="daytitle"></h3>
+    <div class="daylist" id="daylist"></div>
+  </section>
+
   <footer>
     <div><strong>Running a UK event?</strong> DM us on Instagram, <a class="ig-link" href="https://www.instagram.com/ukbeybladeevents/" target="_blank" rel="noopener">@ukbeybladeevents</a>, to get it listed.</div>
     <div>Details come from each organiser's ticket page. Check it before you travel.</div>
@@ -222,13 +274,116 @@ footer strong{color:var(--ink)}
 <script>
 (function(){
   var now = new Date(); var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
-  var shown = 0;
-  document.querySelectorAll('.ev').forEach(function(el){
-    var p = el.getAttribute('data-date').split('-');
-    var d = new Date(+p[0], +p[1]-1, +p[2]);
-    if (d < today) el.hidden = true; else shown++;
+  var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
+  function pd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
+  function pad(n){return (n<10?'0':'')+n;}
+  function key(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+
+  /* 1. Hide past events */
+  var events=[];
+  document.querySelectorAll('#list .ev').forEach(function(el){
+    var d=pd(el.getAttribute('data-date'));
+    if (d < today) { el.hidden = true; return; }
+    events.push(el);
   });
-  if (!shown) document.getElementById('empty').hidden = false;
+  if (!events.length) document.getElementById('empty').hidden = false;
+
+  /* 2. Add-to-calendar on each event */
+  function esc(t){return String(t).replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
+  function info(el){
+    var name=el.querySelector('h2').textContent.trim();
+    var parts=el.querySelector('.where').textContent.split('·').map(function(x){return x.trim();});
+    var m=/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i.exec(parts[parts.length-1]||'');
+    var h=null,mi=0;
+    if(m){h=+m[1]%12+(m[3].toLowerCase()==='pm'?12:0);mi=+(m[2]||0);parts.pop();}
+    var btn=el.querySelector('.btn');
+    return {name:name,loc:parts.join(', '),d:pd(el.getAttribute('data-date')),h:h,mi:mi,url:btn?btn.href:'https://ukbeybladeevents.github.io/'};
+  }
+  function stamp(d,h,mi){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+(h===null?'':'T'+pad(h)+pad(mi)+'00');}
+  function range(e){
+    if(e.h===null){var n=new Date(e.d);n.setDate(n.getDate()+1);return [stamp(e.d,null),stamp(n,null)];}
+    var eh=Math.min(e.h+4,23);return [stamp(e.d,e.h,e.mi),stamp(e.d,eh,e.mi)];
+  }
+  function ics(e){
+    var r=range(e), allday=e.h===null;
+    var z=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
+    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UK Beyblade Events//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',
+      'UID:'+r[0]+'-'+e.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'@ukbeybladeevents.github.io','DTSTAMP:'+z,
+      (allday?'DTSTART;VALUE=DATE:':'DTSTART:')+r[0],(allday?'DTEND;VALUE=DATE:':'DTEND:')+r[1],
+      'SUMMARY:'+esc(e.name),'LOCATION:'+esc(e.loc),
+      'DESCRIPTION:'+esc('Tickets and details: '+e.url+'\nEnd time is a guess. Check the organiser\'s page.\nListed by UK Beyblade Events'),
+      'URL:'+e.url,'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+esc(e.name)+' tomorrow','END:VALARM',
+      'END:VEVENT','END:VCALENDAR'].join('\r\n');
+  }
+  function gcal(e){
+    var r=range(e);
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+
+      '&dates='+r[0]+'/'+r[1]+'&ctz=Europe/London&location='+encodeURIComponent(e.loc)+
+      '&details='+encodeURIComponent('Tickets and details: '+e.url+'\nEnd time is a guess. Check the organiser\'s page.');
+  }
+  events.forEach(function(el){
+    var e=info(el);
+    var file=e.name.replace(/[^A-Za-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.ics';
+    var det=document.createElement('details'); det.className='add';
+    det.innerHTML='<summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add to calendar</summary>'+
+      '<div class="opts"><a href="data:text/calendar;charset=utf-8,'+encodeURIComponent(ics(e))+'" download="'+file+'">iPhone / Outlook</a>'+
+      '<a href="'+gcal(e)+'" target="_blank" rel="noopener">Google Calendar</a>'+
+      '<span class="note">Includes a reminder the day before.'+(e.h===null?'':' End time is a guess.')+'</span></div>';
+    el.querySelector('.info').appendChild(det);
+  });
+
+  /* 3. Calendar view */
+  var byDay={}; events.forEach(function(el){var k=el.getAttribute('data-date');(byDay[k]=byDay[k]||[]).push(el);});
+  var first=new Date(today.getFullYear(),today.getMonth(),1);
+  var lastEv=events.length?pd(events[events.length-1].getAttribute('data-date')):today;
+  var last=new Date(lastEv.getFullYear(),lastEv.getMonth(),1);
+  var cur=new Date(first), sel=null;
+  var grid=document.getElementById('grid'), list=document.getElementById('list'), cal=document.getElementById('cal');
+  function firstEventIn(m){var ks=Object.keys(byDay).sort();for(var i=0;i<ks.length;i++){var d=pd(ks[i]);if(d.getFullYear()===m.getFullYear()&&d.getMonth()===m.getMonth())return ks[i];}return null;}
+  function showDay(k){
+    sel=k; var dl=document.getElementById('daylist'), t=document.getElementById('daytitle');
+    dl.innerHTML='';
+    grid.querySelectorAll('.day').forEach(function(b){b.classList.toggle('sel',b.dataset.k===k);b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false');});
+    if(!k){t.textContent='No events this month yet';return;}
+    var d=pd(k), evs=byDay[k];
+    t.textContent=DAY[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' · '+evs.length+(evs.length===1?' event':' events');
+    evs.forEach(function(el){var c=el.cloneNode(true);c.querySelectorAll('details').forEach(function(x){x.open=false;});dl.appendChild(c);});
+  }
+  function render(){
+    document.getElementById('month').textContent=MON[cur.getMonth()]+' '+cur.getFullYear();
+    document.getElementById('prev').disabled=cur<=first;
+    document.getElementById('next').disabled=cur>=last;
+    var h=''; ['MON','TUE','WED','THU','FRI','SAT','SUN'].forEach(function(w){h+='<div class="wd">'+w+'</div>';});
+    var lead=(new Date(cur.getFullYear(),cur.getMonth(),1).getDay()+6)%7;
+    for(var i=0;i<lead;i++)h+='<div></div>';
+    var dim=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+    for(var n=1;n<=dim;n++){
+      var d=new Date(cur.getFullYear(),cur.getMonth(),n), k=key(d), evs=byDay[k]||[];
+      var cls='day'+(evs.length?' has':'')+(d<today?' past':'')+(+d===+today?' today':'');
+      var mark=evs.length>2?'<span class="count">'+evs.length+'</span>':'<span class="dots">'+(evs.length?'<i></i>':'')+(evs.length>1?'<i></i>':'')+'</span>';
+      if(evs.length) h+='<button type="button" class="'+cls+'" data-k="'+k+'" aria-label="'+n+' '+MON[cur.getMonth()]+', '+evs.length+(evs.length===1?' event':' events')+'">'+n+mark+'</button>';
+      else h+='<div class="'+cls+'">'+n+'</div>';
+    }
+    grid.innerHTML=h;
+    showDay(sel&&sel.slice(0,7)===key(cur).slice(0,7)?sel:firstEventIn(cur));
+  }
+  grid.addEventListener('click',function(e){var b=e.target.closest('.day.has');if(b)showDay(b.dataset.k);});
+  document.getElementById('prev').onclick=function(){cur=new Date(cur.getFullYear(),cur.getMonth()-1,1);render();};
+  document.getElementById('next').onclick=function(){cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);render();};
+
+  var vl=document.getElementById('v-list'), vc=document.getElementById('v-cal');
+  function setView(v){
+    var isCal=v==='cal';
+    list.hidden=isCal; cal.hidden=!isCal;
+    vl.setAttribute('aria-pressed',!isCal); vc.setAttribute('aria-pressed',isCal);
+    if(isCal) render();
+    try{localStorage.setItem('view',v);}catch(e){}
+  }
+  vl.onclick=function(){setView('list');}; vc.onclick=function(){setView('cal');};
+  var start='list'; try{start=localStorage.getItem('view')||'list';}catch(e){}
+  if(location.hash==='#calendar')start='cal';
+  setView(start);
 })();
 </script>
 </body>
