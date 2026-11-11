@@ -194,6 +194,16 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
+    <article class="ev" data-date="2026-11-21">
+      <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
+      <div class="info">
+        <h2>Blader Alliance · Casual Team Tournament</h2>
+        <div class="where">Norwich · NorwichVR, 89 Oak St · 12pm</div>
+        <div class="chips"><span class="chip">Teams of 3</span><span class="chip">48 players</span><span class="chip">£10</span></div>
+        <a class="btn" href="https://www.norfolkbladers.co.uk/events/casual-tournament-blader-alliance" target="_blank" rel="noopener">Get tickets <span class="src">Norfolk Bladers ↗</span></a>
+      </div>
+    </article>
+
     <article class="ev" data-date="2026-11-22">
       <div class="date"><span class="d">SUN</span><span class="n">22</span><span class="d">NOV</span></div>
       <div class="info">
@@ -229,7 +239,7 @@ footer strong{color:var(--ink)}
       <div class="info">
         <h2>KingOfBraves x Beybladexukhker</h2>
         <div class="where">Manchester · The Klondyke, Burnage · 1:30pm</div>
-        <div class="chips"><span class="chip">3on3</span><span class="chip">BX-10</span><span class="chip">56 players</span><span class="chip">£10</span></div>
+        <div class="chips"><span class="chip">3on3</span><span class="chip">BX-10</span><span class="chip">64 players</span><span class="chip">£10</span></div>
         <a class="btn" href="https://braves.challonge.com/m9s2jvbw" target="_blank" rel="noopener">Register <span class="src">Challonge ↗</span></a>
       </div>
     </article>
@@ -314,12 +324,13 @@ footer strong{color:var(--ink)}
   /* Region of each city. An event can override with data-region="Scotland" etc. */
   var REG={Scotland:['ayr','paisley','glasgow','edinburgh','aberdeen','dundee','inverness','stirling','perth','falkirk','kilmarnock','motherwell','hamilton','livingston','dunfermline','kirkcaldy','east kilbride','cumbernauld'],
     North:['manchester','sheffield','leeds','liverpool','newcastle','york','bradford','hull','sunderland','middlesbrough','preston','bolton','wigan','stockport','salford','warrington','blackpool','lancaster','huddersfield','wakefield','doncaster','rotherham','barnsley','durham','carlisle','oldham','rochdale','blackburn','burnley','chester','harrogate','gateshead'],
-    Midlands:['nottingham','birmingham','leicester','derby','coventry','wolverhampton','stoke','stoke-on-trent','northampton','lincoln','worcester','telford','walsall','dudley','solihull','stafford','loughborough','mansfield','peterborough','shrewsbury','hereford','burton','kettering'],
+    Midlands:['nottingham','birmingham','leicester','derby','coventry','wolverhampton','stoke','stoke-on-trent','northampton','lincoln','worcester','telford','walsall','dudley','solihull','stafford','loughborough','mansfield','shrewsbury','hereford','burton','kettering'],
     London:['london','wallington','croydon','sutton','bromley','kingston','harrow','ealing','romford','enfield','barnet','ilford','wembley','stratford','greenwich','lewisham','hounslow','uxbridge','finchley','islington','richmond','twickenham','walthamstow','tottenham'],
-    South:['brighton','bristol','swindon','portsmouth','southsea','southampton','bath','reading','oxford','cambridge','norwich','ipswich','exeter','plymouth','bournemouth','poole','stevenage','luton','milton keynes','watford','guildford','crawley','canterbury','maidstone','chelmsford','colchester','basingstoke','cheltenham','gloucester','slough','high wycombe','st albans','hastings','eastbourne','worthing','chichester','winchester','salisbury','taunton','torquay','truro','bedford','hemel hempstead','southend','basildon','margate','dover','tunbridge wells','aylesbury'],
+    South:['brighton','bristol','swindon','portsmouth','southsea','southampton','bath','reading','oxford','exeter','plymouth','bournemouth','poole','stevenage','luton','milton keynes','watford','guildford','crawley','canterbury','maidstone','basingstoke','cheltenham','gloucester','slough','high wycombe','st albans','hastings','eastbourne','worthing','chichester','winchester','salisbury','taunton','torquay','truro','bedford','hemel hempstead','margate','dover','tunbridge wells','aylesbury'],
+    East:['norwich','ipswich','cambridge','peterborough','colchester','chelmsford','southend','basildon','great yarmouth','lowestoft','kings lynn',"king's lynn",'bury st edmunds','thetford','dereham','harlow','braintree'],
     Wales:['cardiff','swansea','newport','wrexham','bangor','aberystwyth','bridgend','barry','llanelli','merthyr tydfil'],
     'Northern Ireland':['belfast','derry','londonderry','lisburn','newry','bangor ni','armagh','ballymena','coleraine','omagh','enniskillen']};
-  var ORDER=['Scotland','North','Midlands','Wales','London','South','Northern Ireland'];
+  var ORDER=['Scotland','North','Midlands','Wales','East','London','South','Northern Ireland'];
   function region(el){
     if(el.dataset.region)return el.dataset.region;
     var city=el.querySelector('.where').textContent.split('·')[0].trim().toLowerCase();
