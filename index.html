@@ -63,7 +63,7 @@ h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;ma
 .btn.closed{background:transparent;color:var(--muted);border:2px solid var(--line)}
 .empty{color:var(--muted);text-align:center;padding:24px 0}
 /* View toggle, calendar and add-to-calendar */
-.views{display:grid;grid-template-columns:1fr 1fr;gap:4px;padding:4px;background:var(--chip);border-radius:14px}
+.views{display:grid;grid-template-columns:1fr 1fr 1fr;gap:4px;padding:4px;background:var(--chip);border-radius:14px}
 .views button{all:unset;cursor:pointer;text-align:center;min-height:42px;line-height:42px;border-radius:10px;font-weight:700;font-size:15px;color:var(--muted)}
 .views button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(11,27,63,.15)}
 .views button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
@@ -118,6 +118,19 @@ h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;ma
 .share:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
 .ev.flash{box-shadow:0 0 0 3px var(--accent)}
 .toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;padding:12px 18px;border-radius:999px;z-index:9}
+.mapv{display:flex;flex-direction:column;gap:14px}
+.mapcard{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:8px}
+#map{height:min(62vh,460px);border-radius:12px;background:var(--chip);z-index:0}
+.near{all:unset;cursor:pointer;position:absolute;right:18px;top:18px;z-index:5;display:inline-flex;align-items:center;gap:6px;min-height:42px;padding:0 14px;border-radius:999px;background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;box-shadow:0 2px 8px rgba(0,0,0,.25)}
+.near:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.mapnote{margin:8px 6px 2px;font-size:13px;color:var(--muted)}
+.pin{width:30px;height:30px;border-radius:50%;background:var(--accent);border:3px solid #fff;box-shadow:0 2px 6px rgba(0,0,0,.35);display:grid;place-items:center;color:#fff;font:800 13px var(--body);box-sizing:border-box}
+.pin.sel{background:#0B1B3F;transform:scale(1.15)}
+.pin.approx{border-style:dashed}
+.me{width:18px;height:18px;border-radius:50%;background:#2F7BFF;border:3px solid #fff;box-shadow:0 0 0 6px rgba(47,123,255,.25);box-sizing:border-box}
+.chip.dist{background:var(--accent);color:var(--accent-ink)}
+.leaflet-container{font:inherit}
+.leaflet-control-attribution{font-size:10px}
 footer{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
 footer strong{color:var(--ink)}
 </style>
@@ -137,6 +150,7 @@ footer strong{color:var(--ink)}
   <div class="views" role="group" aria-label="View">
     <button type="button" id="v-list" aria-pressed="true">List</button>
     <button type="button" id="v-cal" aria-pressed="false">Calendar</button>
+    <button type="button" id="v-map" aria-pressed="false">Map</button>
   </div>
   <div class="filters">
     <label class="dd"><span class="vh">Region</span><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 21s-7-6.2-7-11.5A7 7 0 0 1 19 9.5C19 14.8 12 21 12 21z"/><circle cx="12" cy="9.5" r="2.5"/></svg><span class="val" id="region-val">All regions</span><select id="region"></select></label>
@@ -144,7 +158,7 @@ footer strong{color:var(--ink)}
   </div>
 
   <main class="list" id="list">
-    <article class="ev" data-date="2026-11-12">
+    <article class="ev" data-date="2026-11-12" data-ll="51.56153,-1.78543" data-approx>
       <div class="date"><span class="d">THU</span><span class="n">12</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Beyblade X Swindon Open League</h2>
@@ -154,7 +168,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-14">
+    <article class="ev" data-date="2026-11-14" data-ll="51.45862,-2.59016">
       <div class="date"><span class="d">SAT</span><span class="n">14</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>No Surrender: November</h2>
@@ -164,7 +178,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-15">
+    <article class="ev" data-date="2026-11-15" data-ll="51.54172,-0.11691">
       <div class="date"><span class="d">SUN</span><span class="n">15</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>GEARS Kids League</h2>
@@ -174,7 +188,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-21">
+    <article class="ev" data-date="2026-11-21" data-ll="51.59199,-0.18752">
       <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Beyblade Battle Tournament</h2>
@@ -184,7 +198,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-21">
+    <article class="ev" data-date="2026-11-21" data-ll="55.46817,-4.62995">
       <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Dominion · Beyblade X Scotland</h2>
@@ -194,7 +208,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-21">
+    <article class="ev" data-date="2026-11-21" data-ll="51.37077,-0.13450">
       <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Croydonia Tournament 10</h2>
@@ -204,7 +218,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-21">
+    <article class="ev" data-date="2026-11-21" data-ll="52.63613,1.28852">
       <div class="date"><span class="d">SAT</span><span class="n">21</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Blader Alliance · Casual Team Tournament</h2>
@@ -214,7 +228,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-22">
+    <article class="ev" data-date="2026-11-22" data-ll="50.82424,-0.13179">
       <div class="date"><span class="d">SUN</span><span class="n">22</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>BBXC X-Storm</h2>
@@ -224,7 +238,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-27">
+    <article class="ev" data-date="2026-11-27" data-ll="51.47680,-0.13197" data-approx>
       <div class="date"><span class="d">FRI</span><span class="n">27</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Spin 'n' Sip</h2>
@@ -234,7 +248,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-28">
+    <article class="ev" data-date="2026-11-28" data-ll="50.79470,-1.07771">
       <div class="date"><span class="d">SAT</span><span class="n">28</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Beyblade Battle Network Tournament</h2>
@@ -244,7 +258,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-29">
+    <article class="ev" data-date="2026-11-29" data-ll="53.44356,-2.19573">
       <div class="date"><span class="d">SUN</span><span class="n">29</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>KingOfBraves x Beybladexukhker</h2>
@@ -254,7 +268,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-11-29">
+    <article class="ev" data-date="2026-11-29" data-ll="53.38066,-1.47023" data-approx>
       <div class="date"><span class="d">SUN</span><span class="n">29</span><span class="d">NOV</span></div>
       <div class="info">
         <h2>Sheffield Kids Episode 2</h2>
@@ -264,7 +278,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-12-05">
+    <article class="ev" data-date="2026-12-05" data-ll="52.94559,-1.14339">
       <div class="date"><span class="d">SAT</span><span class="n">05</span><span class="d">DEC</span></div>
       <div class="info">
         <h2>BeybladeX U14s December</h2>
@@ -274,7 +288,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-12-05">
+    <article class="ev" data-date="2026-12-05" data-ll="52.94559,-1.14339">
       <div class="date"><span class="d">SAT</span><span class="n">05</span><span class="d">DEC</span></div>
       <div class="info">
         <h2>BeybladeX December</h2>
@@ -284,7 +298,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <article class="ev" data-date="2026-12-12">
+    <article class="ev" data-date="2026-12-12" data-ll="55.84778,-4.42327">
       <div class="date"><span class="d">SAT</span><span class="n">12</span><span class="d">DEC</span></div>
       <div class="info">
         <h2>Inazuma at RNG · Beyblade X Scotland</h2>
@@ -309,6 +323,16 @@ footer strong{color:var(--ink)}
     </div>
     <h3 class="daytitle" id="daytitle"></h3>
     <div class="daylist" id="daylist"></div>
+  </section>
+
+  <section class="mapv" id="mapv" hidden aria-label="Map">
+    <div class="mapcard">
+      <div id="map" role="region" aria-label="Map of upcoming events"></div>
+      <button type="button" class="near" id="near"><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 11l18-8-8 18-2-8z"/></svg>Near me</button>
+      <p class="mapnote" id="mapnote">Tap a pin to see its events.</p>
+    </div>
+    <h3 class="daytitle" id="maptitle" hidden></h3>
+    <div class="daylist" id="maplist"></div>
   </section>
 
   <footer>
@@ -436,6 +460,7 @@ footer strong{color:var(--ink)}
     if(!vis.length)em.innerHTML=(all.length?'Nothing matches those filters yet. ':'No upcoming events listed yet. Check back soon. ')+(cur!=='All'||when!=='any'?'<button type="button" class="clear" id="clear">Show all events</button>':'');
     if(vis.length&&(when!=='any')){var f=vis[0].d;month=new Date(f.getFullYear(),f.getMonth(),1);}
     if(!cal.hidden)renderCal();
+    if(!mapv.hidden){selKey=null;document.getElementById('maptitle').hidden=true;document.getElementById('maplist').innerHTML='';renderMap(true);}
   }
   rsel.onchange=function(){cur=rsel.value;store('region',cur);sel=null;applyFilter();};
   wsel.onchange=function(){when=wsel.value;sel=null;applyFilter();};
@@ -477,20 +502,110 @@ footer strong{color:var(--ink)}
   document.getElementById('prev').onclick=function(){month=new Date(month.getFullYear(),month.getMonth()-1,1);renderCal();};
   document.getElementById('next').onclick=function(){month=new Date(month.getFullYear(),month.getMonth()+1,1);renderCal();};
 
-  /* List / Calendar toggle */
-  var vl=document.getElementById('v-list'), vc=document.getElementById('v-cal');
-  function setView(v){
-    var isCal=v==='cal'; list.hidden=isCal; cal.hidden=!isCal;
-    vl.setAttribute('aria-pressed',!isCal); vc.setAttribute('aria-pressed',isCal);
-    if(isCal)renderCal(); store('view',v);
+  /* Map view (Leaflet loads only when the Map tab is opened) */
+  var mapv=document.getElementById('mapv'), map=null, layer=null, meLL=null, meMarker=null, selKey=null, leafletLoading=false;
+  function ll(el){var v=(el.getAttribute('data-ll')||'').split(',');return v.length===2?[+v[0],+v[1]]:null;}
+  function miles(a,b){var R=3958.8,t=Math.PI/180,dl=(b[0]-a[0])*t,dn=(b[1]-a[1])*t,x=Math.sin(dl/2)*Math.sin(dl/2)+Math.cos(a[0]*t)*Math.cos(b[0]*t)*Math.sin(dn/2)*Math.sin(dn/2);return 2*R*Math.asin(Math.sqrt(x));}
+  function loadLeaflet(cb){
+    if(window.L)return cb();
+    if(leafletLoading)return; leafletLoading=true;
+    var c=document.createElement('link');c.rel='stylesheet';c.href='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.css';document.head.appendChild(c);
+    var sc=document.createElement('script');sc.src='https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.min.js';
+    sc.onload=function(){leafletLoading=false;cb();};
+    sc.onerror=function(){leafletLoading=false;document.getElementById('mapnote').textContent='The map could not load. Check your connection and try again.';};
+    document.head.appendChild(sc);
   }
-  vl.onclick=function(){setView('list');}; vc.onclick=function(){setView('cal');};
+  function dark(){return getComputedStyle(document.documentElement).getPropertyValue('--bg').trim().toUpperCase()==='#0B1B3F';}
+  function showPinEvents(items,title){
+    var t=document.getElementById('maptitle'), l=document.getElementById('maplist');
+    l.innerHTML=''; t.hidden=false; t.textContent=title;
+    items.forEach(function(e){
+      var c=e.el.cloneNode(true);c.removeAttribute('id');c.hidden=false;c.querySelectorAll('details').forEach(function(x){x.open=false;});
+      if(meLL&&ll(e.el)){var ch=document.createElement('span');ch.className='chip dist';ch.textContent=Math.round(miles(meLL,ll(e.el)))+' miles away';c.querySelector('.chips').prepend(ch);}
+      l.appendChild(c);
+    });
+  }
+  function glide(el){var reduce=window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches;el.scrollIntoView({behavior:reduce?'auto':'smooth',block:'start'});}
+  function drawPins(){
+    if(!map)return;
+    if(layer)layer.remove(); layer=L.layerGroup().addTo(map);
+    var vis=shown().filter(function(e){return ll(e.el);}), groups=[];
+    vis.forEach(function(e){
+      var p=map.latLngToLayerPoint(ll(e.el)), g=null;
+      for(var i=0;i<groups.length;i++){if(groups[i].p.distanceTo(p)<34){g=groups[i];break;}}
+      if(g){g.items.push(e);}else groups.push({p:p,items:[e]});
+    });
+    groups.forEach(function(g){
+      var lat=0,lng=0; g.items.forEach(function(e){var x=ll(e.el);lat+=x[0];lng+=x[1];}); lat/=g.items.length; lng/=g.items.length;
+      var k=g.items.map(function(e){return e.el.id;}).join('|'), n=g.items.length;
+      var approx=g.items.every(function(e){return e.el.hasAttribute('data-approx');});
+      var icon=L.divIcon({className:'',html:'<div class="pin'+(approx?' approx':'')+(k===selKey?' sel':'')+'">'+(n>1?n:'')+'</div>',iconSize:[30,30],iconAnchor:[15,15]});
+      var places={}; g.items.forEach(function(e){places[e.el.querySelector('.where').textContent.split('·')[0].trim()]=1;});
+      var label=Object.keys(places).join(', ')+': '+n+(n===1?' event':' events');
+      var m=L.marker([lat,lng],{icon:icon,title:label,keyboard:true}).addTo(layer);
+      m.on('click',function(){
+        selKey=k; drawPins();
+        var title=label+(approx?' (approximate location)':'');
+        showPinEvents(g.items,title);
+        if(n>1&&map.getZoom()<11){var b=L.latLngBounds(g.items.map(function(e){return ll(e.el);}));if(b.getNorthEast().distanceTo(b.getSouthWest())>800){map.fitBounds(b,{padding:[50,50],maxZoom:13});}}
+        glide(document.getElementById("maptitle"));
+      });
+    });
+    document.getElementById('mapnote').textContent=vis.length?'Tap a pin to see its events. Dashed pins are approximate.':'No events match those filters.';
+  }
+  function fitAll(){
+    var pts=shown().map(function(e){return ll(e.el);}).filter(Boolean);
+    if(meLL)pts.push(meLL);
+    if(pts.length)map.fitBounds(L.latLngBounds(pts),{padding:[30,30],maxZoom:11});
+    else map.setView([54.3,-3],5);
+  }
+  function renderMap(refit){
+    loadLeaflet(function(){
+      if(!map){
+        map=L.map('map',{zoomControl:true,attributionControl:true,scrollWheelZoom:false});
+        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/'+(dark()?'dark_all':'voyager')+'/{z}/{x}/{y}{r}.png',
+          {maxZoom:18,subdomains:'abcd',attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+        map.on('zoomend',drawPins);
+        refit=true;
+      }
+      map.invalidateSize();
+      if(refit)fitAll();
+      drawPins();
+    });
+  }
+  document.getElementById('near').onclick=function(){
+    var note=document.getElementById('mapnote');
+    if(!navigator.geolocation){note.textContent='Your browser can\'t share your location.';return;}
+    note.textContent='Finding you…';
+    navigator.geolocation.getCurrentPosition(function(pos){
+      meLL=[pos.coords.latitude,pos.coords.longitude];
+      if(meMarker)meMarker.remove();
+      meMarker=L.marker(meLL,{icon:L.divIcon({className:'',html:'<div class="me"></div>',iconSize:[18,18],iconAnchor:[9,9]}),title:'You',keyboard:false}).addTo(map);
+      var vis=shown().filter(function(e){return ll(e.el);}).sort(function(a,b){return miles(meLL,ll(a.el))-miles(meLL,ll(b.el));});
+      var near=vis.slice(0,3);
+      if(near.length)map.fitBounds(L.latLngBounds(near.map(function(e){return ll(e.el);}).concat([meLL])),{padding:[40,40],maxZoom:12});
+      selKey=null; drawPins();
+      showPinEvents(vis,'Nearest to you');
+      note.textContent='Showing events by distance. Your location stays on your phone.';
+      glide(document.getElementById("maptitle"));
+    },function(){note.textContent='Couldn\'t get your location. Check location access is allowed for this site.';},{enableHighAccuracy:false,timeout:10000,maximumAge:600000});
+  };
+
+  /* List / Calendar / Map toggle */
+  var vl=document.getElementById('v-list'), vc=document.getElementById('v-cal'), vm=document.getElementById('v-map');
+  function setView(v){
+    list.hidden=v!=='list'; cal.hidden=v!=='cal'; mapv.hidden=v!=='map';
+    vl.setAttribute('aria-pressed',v==='list'); vc.setAttribute('aria-pressed',v==='cal'); vm.setAttribute('aria-pressed',v==='map');
+    if(v==='cal')renderCal(); if(v==='map')renderMap(true);
+    store('view',v);
+  }
+  vl.onclick=function(){setView('list');}; vc.onclick=function(){setView('cal');}; vm.onclick=function(){setView('map');};
 
   /* Start: a shared event link opens the list on that event */
   var target=location.hash.indexOf('#ev-')===0?document.getElementById(location.hash.slice(1)):null;
   if(target){cur='All';rsel.value='All';}
   applyFilter();
-  setView(target?'list':(location.hash==='#calendar'?'cal':(store('view')||'list')));
+  setView(target?'list':(location.hash==='#calendar'?'cal':(location.hash==='#map'?'map':(store('view')||'list'))));
   if(target){target.classList.add('flash');setTimeout(function(){target.scrollIntoView({block:'center'});},50);setTimeout(function(){target.classList.remove('flash');},3000);}
 })();
 </script>
