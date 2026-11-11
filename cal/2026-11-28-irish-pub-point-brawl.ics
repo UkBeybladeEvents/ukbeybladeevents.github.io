@@ -3,18 +3,18 @@ VERSION:2.0
 PRODID:-//UK Beyblade Events//EN
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
-UID:20261128-leamington-spa-point-brawl@ukbeybladeevents.github.io
-DTSTAMP:20261111T164854Z
+UID:20261128-irish-pub-point-brawl@ukbeybladeevents.github.io
+DTSTAMP:20261111T165952Z
 DTSTART:20261128T130000
 DTEND:20261128T170000
-SUMMARY:Leamington Spa Point Brawl
+SUMMARY:Irish Pub Point Brawl
 LOCATION:Leamington Spa\, St Patrick's Irish Club
 DESCRIPTION:Tickets and details: https://challonge.com/tournaments/signup/1NDmUzTt84\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
 URL:https://challonge.com/tournaments/signup/1NDmUzTt84
 BEGIN:VALARM
 TRIGGER:-P1D
 ACTION:DISPLAY
-DESCRIPTION:Leamington Spa Point Brawl tomorrow
+DESCRIPTION:Irish Pub Point Brawl tomorrow
 END:VALARM
 END:VEVENT
 END:VCALENDAR
