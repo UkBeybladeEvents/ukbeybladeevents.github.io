@@ -98,6 +98,19 @@ h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;ma
 .add .opts a{display:inline-flex;align-items:center;min-height:40px;padding:0 14px;border-radius:10px;border:2px solid var(--line);color:var(--ink);font-weight:700;font-size:14px;text-decoration:none}
 .add .opts a:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
 .add .note{width:100%;font-size:12.5px;color:var(--muted)}
+.regions{display:flex;gap:8px;overflow-x:auto;scrollbar-width:none;margin:-12px -16px 0;padding:2px 16px 4px}
+.regions::-webkit-scrollbar{display:none}
+.regions button{all:unset;cursor:pointer;flex-shrink:0;min-height:40px;line-height:40px;padding:0 16px;border-radius:999px;border:2px solid var(--line);font-weight:700;font-size:14px;color:var(--ink);white-space:nowrap}
+.regions button[aria-pressed="true"]{background:var(--ink);border-color:var(--ink);color:var(--bg)}
+.regions button:focus-visible{outline:3px solid var(--accent);outline-offset:2px}
+.wk{font-family:var(--display);font-size:18px;margin:10px 0 -2px;display:flex;align-items:baseline;gap:8px}
+.wk:first-child{margin-top:0}
+.wk small{font-family:var(--body);font-weight:600;font-size:14px;color:var(--muted)}
+.actions{display:flex;flex-wrap:wrap;align-items:flex-start;column-gap:18px}
+.share{all:unset;cursor:pointer;display:inline-flex;align-items:center;gap:6px;min-height:40px;font-weight:700;font-size:14px;color:var(--ink)}
+.share:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:8px}
+.ev.flash{box-shadow:0 0 0 3px var(--accent)}
+.toast{position:fixed;left:50%;bottom:calc(24px + env(safe-area-inset-bottom,0px));transform:translateX(-50%);background:var(--ink);color:var(--bg);font-weight:700;font-size:14px;padding:12px 18px;border-radius:999px;z-index:9}
 footer{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
 footer strong{color:var(--ink)}
 </style>
@@ -118,6 +131,7 @@ footer strong{color:var(--ink)}
     <button type="button" id="v-list" aria-pressed="true">List</button>
     <button type="button" id="v-cal" aria-pressed="false">Calendar</button>
   </div>
+  <div class="regions" id="regions" role="group" aria-label="Filter by region"></div>
 
   <main class="list" id="list">
     <article class="ev" data-date="2026-11-12">
@@ -260,7 +274,7 @@ footer strong{color:var(--ink)}
       </div>
     </article>
 
-    <p class="empty" id="empty" hidden>No upcoming events listed yet. Check back soon.</p>
+    <p class="empty" id="empty" hidden>No upcoming events listed here yet. Check back soon, or try another region.</p>
   </main>
 
   <section class="cal" id="cal" hidden aria-label="Calendar">
@@ -286,117 +300,170 @@ footer strong{color:var(--ink)}
 
 <script>
 (function(){
-  var now = new Date(); var today = new Date(now.getFullYear(), now.getMonth(), now.getDate());
+  var now=new Date(), today=new Date(now.getFullYear(),now.getMonth(),now.getDate());
   var MON=['January','February','March','April','May','June','July','August','September','October','November','December'];
+  var MS=['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov','Dec'];
   var DAY=['Sunday','Monday','Tuesday','Wednesday','Thursday','Friday','Saturday'];
   function pd(s){var p=s.split('-');return new Date(+p[0],+p[1]-1,+p[2]);}
   function pad(n){return (n<10?'0':'')+n;}
   function key(d){return d.getFullYear()+'-'+pad(d.getMonth()+1)+'-'+pad(d.getDate());}
+  function slug(t){return t.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'');}
+  function store(k,v){try{if(v===undefined)return localStorage.getItem(k);localStorage.setItem(k,v);}catch(e){return null;}}
+  var list=document.getElementById('list'), cal=document.getElementById('cal');
 
-  /* 1. Hide past events */
-  var events=[];
+  /* Region of each city. An event can override with data-region="Scotland" etc. */
+  var REG={Scotland:['ayr','paisley','glasgow','edinburgh','aberdeen','dundee','inverness','stirling','perth','falkirk','kilmarnock','motherwell','hamilton','livingston','dunfermline','kirkcaldy','east kilbride','cumbernauld'],
+    North:['manchester','sheffield','leeds','liverpool','newcastle','york','bradford','hull','sunderland','middlesbrough','preston','bolton','wigan','stockport','salford','warrington','blackpool','lancaster','huddersfield','wakefield','doncaster','rotherham','barnsley','durham','carlisle','oldham','rochdale','blackburn','burnley','chester','harrogate','gateshead'],
+    Midlands:['nottingham','birmingham','leicester','derby','coventry','wolverhampton','stoke','stoke-on-trent','northampton','lincoln','worcester','telford','walsall','dudley','solihull','stafford','loughborough','mansfield','peterborough','shrewsbury','hereford','burton','kettering'],
+    London:['london','wallington','croydon','sutton','bromley','kingston','harrow','ealing','romford','enfield','barnet','ilford','wembley','stratford','greenwich','lewisham','hounslow','uxbridge','finchley','islington','richmond','twickenham','walthamstow','tottenham'],
+    South:['brighton','bristol','swindon','portsmouth','southsea','southampton','bath','reading','oxford','cambridge','norwich','ipswich','exeter','plymouth','bournemouth','poole','stevenage','luton','milton keynes','watford','guildford','crawley','canterbury','maidstone','chelmsford','colchester','basingstoke','cheltenham','gloucester','slough','high wycombe','st albans','hastings','eastbourne','worthing','chichester','winchester','salisbury','taunton','torquay','truro','bedford','hemel hempstead','southend','basildon','margate','dover','tunbridge wells','aylesbury'],
+    Wales:['cardiff','swansea','newport','wrexham','bangor','aberystwyth','bridgend','barry','llanelli','merthyr tydfil'],
+    'Northern Ireland':['belfast','derry','londonderry','lisburn','newry','bangor ni','armagh','ballymena','coleraine','omagh','enniskillen']};
+  var ORDER=['Scotland','North','Midlands','Wales','London','South','Northern Ireland'];
+  function region(el){
+    if(el.dataset.region)return el.dataset.region;
+    var city=el.querySelector('.where').textContent.split('·')[0].trim().toLowerCase();
+    for(var r in REG){if(REG[r].indexOf(city)>-1)return r;}
+    return 'Other';
+  }
+
+  /* Event data */
+  var all=[];
   document.querySelectorAll('#list .ev').forEach(function(el){
     var d=pd(el.getAttribute('data-date'));
-    if (d < today) { el.hidden = true; return; }
-    events.push(el);
-  });
-  if (!events.length) document.getElementById('empty').hidden = false;
-
-  /* 2. Add-to-calendar on each event */
-  function esc(t){return String(t).replace(/\\/g,'\\\\').replace(/;/g,'\;').replace(/,/g,'\\,').replace(/\n/g,'\\n');}
-  function info(el){
+    if(d<today){el.hidden=true;return;}
     var name=el.querySelector('h2').textContent.trim();
+    el.id='ev-'+el.getAttribute('data-date')+'-'+slug(name);
+    all.push({el:el,d:d,k:el.getAttribute('data-date'),name:name,region:region(el)});
+  });
+
+  /* Add to calendar + share on each event */
+  function info(el){
     var parts=el.querySelector('.where').textContent.split('·').map(function(x){return x.trim();});
-    var m=/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i.exec(parts[parts.length-1]||'');
-    var h=null,mi=0;
+    var m=/^(\d{1,2})(?::(\d{2}))?\s*(am|pm)$/i.exec(parts[parts.length-1]||''), h=null, mi=0;
     if(m){h=+m[1]%12+(m[3].toLowerCase()==='pm'?12:0);mi=+(m[2]||0);parts.pop();}
     var btn=el.querySelector('.btn');
-    return {name:name,loc:parts.join(', '),d:pd(el.getAttribute('data-date')),h:h,mi:mi,url:btn?btn.href:'https://ukbeybladeevents.github.io/'};
+    return {loc:parts.join(', '),h:h,mi:mi,url:btn?btn.href:location.href};
   }
   function stamp(d,h,mi){return d.getFullYear()+pad(d.getMonth()+1)+pad(d.getDate())+(h===null?'':'T'+pad(h)+pad(mi)+'00');}
-  function range(e){
-    if(e.h===null){var n=new Date(e.d);n.setDate(n.getDate()+1);return [stamp(e.d,null),stamp(n,null)];}
-    var eh=Math.min(e.h+4,23);return [stamp(e.d,e.h,e.mi),stamp(e.d,eh,e.mi)];
+  function gcal(e,x){
+    var r;
+    if(x.h===null){var n=new Date(e.d);n.setDate(n.getDate()+1);r=[stamp(e.d,null),stamp(n,null)];}
+    else r=[stamp(e.d,x.h,x.mi),stamp(e.d,Math.min(x.h+4,23),x.mi)];
+    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+'&dates='+r[0]+'/'+r[1]+
+      '&ctz=Europe/London&location='+encodeURIComponent(x.loc)+'&details='+encodeURIComponent('Tickets and details: '+x.url+'\nEnd time is a guess. Check the organiser\'s page.');
   }
-  function ics(e){
-    var r=range(e), allday=e.h===null;
-    var z=new Date().toISOString().replace(/[-:]/g,'').replace(/\.\d+/,'');
-    return ['BEGIN:VCALENDAR','VERSION:2.0','PRODID:-//UK Beyblade Events//EN','CALSCALE:GREGORIAN','BEGIN:VEVENT',
-      'UID:'+r[0]+'-'+e.name.toLowerCase().replace(/[^a-z0-9]+/g,'-')+'@ukbeybladeevents.github.io','DTSTAMP:'+z,
-      (allday?'DTSTART;VALUE=DATE:':'DTSTART:')+r[0],(allday?'DTEND;VALUE=DATE:':'DTEND:')+r[1],
-      'SUMMARY:'+esc(e.name),'LOCATION:'+esc(e.loc),
-      'DESCRIPTION:'+esc('Tickets and details: '+e.url+'\nEnd time is a guess. Check the organiser\'s page.\nListed by UK Beyblade Events'),
-      'URL:'+e.url,'BEGIN:VALARM','TRIGGER:-P1D','ACTION:DISPLAY','DESCRIPTION:'+esc(e.name)+' tomorrow','END:VALARM',
-      'END:VEVENT','END:VCALENDAR'].join('\r\n');
-  }
-  function gcal(e){
-    var r=range(e);
-    return 'https://calendar.google.com/calendar/render?action=TEMPLATE&text='+encodeURIComponent(e.name)+
-      '&dates='+r[0]+'/'+r[1]+'&ctz=Europe/London&location='+encodeURIComponent(e.loc)+
-      '&details='+encodeURIComponent('Tickets and details: '+e.url+'\nEnd time is a guess. Check the organiser\'s page.');
-  }
-  events.forEach(function(el){
-    var e=info(el);
-    var det=document.createElement('details'); det.className='add';
-    det.innerHTML='<summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add to calendar</summary>'+
-      '<div class="opts"><a href="cal/'+el.getAttribute('data-date')+'-'+e.name.toLowerCase().replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,'')+'.ics">iPhone / Outlook</a>'+
-      '<a href="'+gcal(e)+'" target="_blank" rel="noopener">Google Calendar</a>'+
-      '<span class="note">Includes a reminder the day before.'+(e.h===null?'':' End time is a guess.')+'</span></div>';
-    el.querySelector('.info').appendChild(det);
+  var SHARE='<svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12M7 8l5-5 5 5"/><path d="M5 13v6a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2v-6"/></svg>';
+  all.forEach(function(e){
+    var x=info(e.el);
+    var row=document.createElement('div'); row.className='actions';
+    row.innerHTML='<button type="button" class="share" data-id="'+e.el.id+'">'+SHARE+'Share</button>'+
+      '<details class="add"><summary><svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="3" y="5" width="18" height="16" rx="3"/><path d="M3 10h18M8 3v4M16 3v4M12 13v5M9.5 15.5h5"/></svg>Add to calendar</summary>'+
+      '<div class="opts"><a href="cal/'+e.k+'-'+slug(e.name)+'.ics">iPhone / Outlook</a>'+
+      '<a href="'+gcal(e,x)+'" target="_blank" rel="noopener">Google Calendar</a>'+
+      '<span class="note">Includes a reminder the day before.'+(x.h===null?'':' End time is a guess.')+'</span></div></details>';
+    e.el.querySelector('.info').appendChild(row);
+  });
+  var toast=document.getElementById('toast'), tt;
+  function say(t){toast.textContent=t;toast.hidden=false;clearTimeout(tt);tt=setTimeout(function(){toast.hidden=true;},2200);}
+  document.addEventListener('click',function(ev){
+    var b=ev.target.closest('.share'); if(!b)return;
+    var el=document.getElementById(b.dataset.id), d=pd(el.getAttribute('data-date'));
+    var name=el.querySelector('h2').textContent.trim(), city=el.querySelector('.where').textContent.split('·')[0].trim();
+    var url=location.origin+location.pathname+'#'+b.dataset.id;
+    var text=name+' · '+city+' · '+DAY[d.getDay()].slice(0,3)+' '+d.getDate()+' '+MS[d.getMonth()];
+    if(navigator.share){navigator.share({title:name,text:text,url:url}).catch(function(){});}
+    else if(navigator.clipboard){navigator.clipboard.writeText(text+'\n'+url).then(function(){say('Link copied');},function(){prompt('Copy this link',url);});}
+    else prompt('Copy this link',url);
   });
 
-  /* 3. Calendar view */
-  var byDay={}; events.forEach(function(el){var k=el.getAttribute('data-date');(byDay[k]=byDay[k]||[]).push(el);});
-  var first=new Date(today.getFullYear(),today.getMonth(),1);
-  var lastEv=events.length?pd(events[events.length-1].getAttribute('data-date')):today;
-  var last=new Date(lastEv.getFullYear(),lastEv.getMonth(),1);
-  var cur=new Date(first), sel=null;
-  var grid=document.getElementById('grid'), list=document.getElementById('list'), cal=document.getElementById('cal');
-  function firstEventIn(m){var ks=Object.keys(byDay).sort();for(var i=0;i<ks.length;i++){var d=pd(ks[i]);if(d.getFullYear()===m.getFullYear()&&d.getMonth()===m.getMonth())return ks[i];}return null;}
-  function showDay(k){
-    sel=k; var dl=document.getElementById('daylist'), t=document.getElementById('daytitle');
-    dl.innerHTML='';
-    grid.querySelectorAll('.day').forEach(function(b){b.classList.toggle('sel',b.dataset.k===k);b.setAttribute('aria-pressed',b.dataset.k===k?'true':'false');});
-    if(!k){t.textContent='No events this month yet';return;}
-    var d=pd(k), evs=byDay[k];
-    t.textContent=DAY[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' · '+evs.length+(evs.length===1?' event':' events');
-    evs.forEach(function(el){var c=el.cloneNode(true);c.querySelectorAll('details').forEach(function(x){x.open=false;});dl.appendChild(c);});
+  /* Week headings for the list */
+  var mon=new Date(today); mon.setDate(today.getDate()-((today.getDay()+6)%7));
+  function addDays(d,n){var x=new Date(d);x.setDate(x.getDate()+n);return x;}
+  function rng(a,b){return a.getMonth()===b.getMonth()?a.getDate()+'–'+b.getDate()+' '+MS[a.getMonth()]:a.getDate()+' '+MS[a.getMonth()]+' – '+b.getDate()+' '+MS[b.getMonth()];}
+  var nextMon=addDays(mon,7), after=addDays(mon,14);
+  var GROUPS=[{t:'This week',sub:rng(today,addDays(mon,6)),test:function(d){return d<nextMon;}},
+              {t:'Next week',sub:rng(nextMon,addDays(nextMon,6)),test:function(d){return d>=nextMon&&d<after;}},
+              {t:'Later',sub:'',test:function(d){return d>=after;}}];
+  GROUPS.forEach(function(g){
+    g.items=all.filter(function(e){return g.test(e.d);});
+    if(!g.items.length)return;
+    g.h=document.createElement('h2'); g.h.className='wk';
+    g.h.innerHTML=g.t+(g.sub?' <small>'+g.sub+'</small>':'');
+    list.insertBefore(g.h,g.items[0].el);
+  });
+
+  /* Region filter */
+  var present={}; all.forEach(function(e){present[e.region]=1;});
+  var regs=['All'].concat(ORDER.filter(function(r){return present[r];})).concat(present.Other?['Other']:[]);
+  var bar=document.getElementById('regions'), cur=store('region');
+  if(regs.indexOf(cur)<0)cur='All';
+  bar.innerHTML=regs.map(function(r){return '<button type="button" data-r="'+r+'">'+r+'</button>';}).join('');
+  if(regs.length<3)bar.hidden=true;
+  function shown(){return all.filter(function(e){return cur==='All'||e.region===cur;});}
+  function applyFilter(){
+    bar.querySelectorAll('button').forEach(function(b){b.setAttribute('aria-pressed',b.dataset.r===cur?'true':'false');});
+    var vis=shown();
+    all.forEach(function(e){e.el.hidden=vis.indexOf(e)<0;});
+    GROUPS.forEach(function(g){if(g.h)g.h.hidden=!g.items.some(function(e){return vis.indexOf(e)>-1;});});
+    document.getElementById('empty').hidden=vis.length>0;
+    if(!cal.hidden)renderCal();
   }
-  function render(){
-    document.getElementById('month').textContent=MON[cur.getMonth()]+' '+cur.getFullYear();
-    document.getElementById('prev').disabled=cur<=first;
-    document.getElementById('next').disabled=cur>=last;
+  bar.addEventListener('click',function(ev){var b=ev.target.closest('button');if(!b)return;cur=b.dataset.r;store('region',cur);sel=null;applyFilter();});
+
+  /* Calendar view */
+  var first=new Date(today.getFullYear(),today.getMonth(),1);
+  var lastEv=all.length?all[all.length-1].d:today, last=new Date(lastEv.getFullYear(),lastEv.getMonth(),1);
+  var month=new Date(first), sel=null, grid=document.getElementById('grid');
+  function byDay(){var o={};shown().forEach(function(e){(o[e.k]=o[e.k]||[]).push(e.el);});return o;}
+  function showDay(k,days){
+    sel=k; var dl=document.getElementById('daylist'), t=document.getElementById('daytitle'); dl.innerHTML='';
+    grid.querySelectorAll('.day.has').forEach(function(b){var on=b.dataset.k===k;b.classList.toggle('sel',on);b.setAttribute('aria-pressed',on?'true':'false');});
+    if(!k){t.textContent=cur==='All'?'No events this month yet':'No '+cur+' events this month yet';return;}
+    var d=pd(k), evs=days[k];
+    t.textContent=DAY[d.getDay()]+' '+d.getDate()+' '+MON[d.getMonth()]+' · '+evs.length+(evs.length===1?' event':' events');
+    evs.forEach(function(el){var c=el.cloneNode(true);c.removeAttribute('id');c.hidden=false;c.querySelectorAll('details').forEach(function(x){x.open=false;});dl.appendChild(c);});
+  }
+  function renderCal(){
+    var days=byDay();
+    document.getElementById('month').textContent=MON[month.getMonth()]+' '+month.getFullYear();
+    document.getElementById('prev').disabled=month<=first;
+    document.getElementById('next').disabled=month>=last;
     var h=''; ['MON','TUE','WED','THU','FRI','SAT','SUN'].forEach(function(w){h+='<div class="wd">'+w+'</div>';});
-    var lead=(new Date(cur.getFullYear(),cur.getMonth(),1).getDay()+6)%7;
+    var lead=(new Date(month.getFullYear(),month.getMonth(),1).getDay()+6)%7;
     for(var i=0;i<lead;i++)h+='<div></div>';
-    var dim=new Date(cur.getFullYear(),cur.getMonth()+1,0).getDate();
+    var dim=new Date(month.getFullYear(),month.getMonth()+1,0).getDate(), firstK=null;
     for(var n=1;n<=dim;n++){
-      var d=new Date(cur.getFullYear(),cur.getMonth(),n), k=key(d), evs=byDay[k]||[];
+      var d=new Date(month.getFullYear(),month.getMonth(),n), k=key(d), evs=days[k]||[];
+      if(evs.length&&!firstK)firstK=k;
       var cls='day'+(evs.length?' has':'')+(d<today?' past':'')+(+d===+today?' today':'');
       var mark=evs.length>2?'<span class="count">'+evs.length+'</span>':'<span class="dots">'+(evs.length?'<i></i>':'')+(evs.length>1?'<i></i>':'')+'</span>';
-      if(evs.length) h+='<button type="button" class="'+cls+'" data-k="'+k+'" aria-label="'+n+' '+MON[cur.getMonth()]+', '+evs.length+(evs.length===1?' event':' events')+'">'+n+mark+'</button>';
-      else h+='<div class="'+cls+'">'+n+'</div>';
+      h+=evs.length?'<button type="button" class="'+cls+'" data-k="'+k+'" aria-label="'+n+' '+MON[month.getMonth()]+', '+evs.length+(evs.length===1?' event':' events')+'">'+n+mark+'</button>':'<div class="'+cls+'">'+n+'</div>';
     }
     grid.innerHTML=h;
-    showDay(sel&&sel.slice(0,7)===key(cur).slice(0,7)?sel:firstEventIn(cur));
+    showDay(sel&&days[sel]&&sel.slice(0,7)===key(month).slice(0,7)?sel:firstK,days);
   }
-  grid.addEventListener('click',function(e){var b=e.target.closest('.day.has');if(b)showDay(b.dataset.k);});
-  document.getElementById('prev').onclick=function(){cur=new Date(cur.getFullYear(),cur.getMonth()-1,1);render();};
-  document.getElementById('next').onclick=function(){cur=new Date(cur.getFullYear(),cur.getMonth()+1,1);render();};
+  grid.addEventListener('click',function(ev){var b=ev.target.closest('.day.has');if(b)showDay(b.dataset.k,byDay());});
+  document.getElementById('prev').onclick=function(){month=new Date(month.getFullYear(),month.getMonth()-1,1);renderCal();};
+  document.getElementById('next').onclick=function(){month=new Date(month.getFullYear(),month.getMonth()+1,1);renderCal();};
 
+  /* List / Calendar toggle */
   var vl=document.getElementById('v-list'), vc=document.getElementById('v-cal');
   function setView(v){
-    var isCal=v==='cal';
-    list.hidden=isCal; cal.hidden=!isCal;
+    var isCal=v==='cal'; list.hidden=isCal; cal.hidden=!isCal;
     vl.setAttribute('aria-pressed',!isCal); vc.setAttribute('aria-pressed',isCal);
-    if(isCal) render();
-    try{localStorage.setItem('view',v);}catch(e){}
+    if(isCal)renderCal(); store('view',v);
   }
   vl.onclick=function(){setView('list');}; vc.onclick=function(){setView('cal');};
-  var start='list'; try{start=localStorage.getItem('view')||'list';}catch(e){}
-  if(location.hash==='#calendar')start='cal';
-  setView(start);
+
+  /* Start: a shared event link opens the list on that event */
+  var target=location.hash.indexOf('#ev-')===0?document.getElementById(location.hash.slice(1)):null;
+  if(target){cur='All';}
+  applyFilter();
+  setView(target?'list':(location.hash==='#calendar'?'cal':(store('view')||'list')));
+  if(target){target.classList.add('flash');setTimeout(function(){target.scrollIntoView({block:'center'});},50);setTimeout(function(){target.classList.remove('flash');},3000);}
 })();
 </script>
+<div class="toast" id="toast" hidden role="status"></div>
 </body>
 </html>
