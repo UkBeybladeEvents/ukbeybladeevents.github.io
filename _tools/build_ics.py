@@ -25,7 +25,7 @@ def esc(t):
 stamp = dt.datetime.now(dt.timezone.utc).strftime("%Y%m%dT%H%M%SZ")
 today = dt.date.today()
 events, written = [], set()
-for m in re.finditer(r'<article class="ev" data-date="(\d{4}-\d{2}-\d{2})">(.*?)</article>', page, re.S):
+for m in re.finditer(r'<article class="ev" data-date="(\d{4}-\d{2}-\d{2})"[^>]*>(.*?)</article>', page, re.S):
     day = dt.date.fromisoformat(m.group(1))
     body = m.group(2)
     name = text(re.search(r"<h2>(.*?)</h2>", body, re.S).group(1))
@@ -62,6 +62,8 @@ for v in events:
 (out / "all.ics").write_text("\r\n".join(allcal + ["END:VCALENDAR"]) + "\r\n", encoding="utf-8")
 written.add("all.ics")
 
+if len(written) == 1 and "class=\"ev\"" in page:
+    raise SystemExit("No events parsed from index.html - check the <article> format. Nothing deleted.")
 for old in out.glob("*.ics"):          # remove files for events no longer listed
     if old.name not in written:
         old.unlink()
