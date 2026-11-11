@@ -130,6 +130,7 @@ h1{font-family:var(--display);font-size:clamp(34px,10vw,48px);line-height:.95;ma
 .me{width:18px;height:18px;border-radius:50%;background:#2F7BFF;border:3px solid #fff;box-shadow:0 0 0 6px rgba(47,123,255,.25);box-sizing:border-box}
 .chip.dist{background:var(--accent);color:var(--accent-ink)}
 .leaflet-container{font:inherit}
+#map.darkmap .leaflet-tile-pane{filter:invert(1) hue-rotate(180deg) brightness(.95) contrast(.9) saturate(.6)}
 .leaflet-control-attribution{font-size:10px}
 footer{display:flex;flex-direction:column;gap:6px;color:var(--muted);font-size:13.5px;border-top:1px solid var(--line);padding-top:16px}
 footer strong{color:var(--ink)}
@@ -563,8 +564,9 @@ footer strong{color:var(--ink)}
     loadLeaflet(function(){
       if(!map){
         map=L.map('map',{zoomControl:true,attributionControl:true,scrollWheelZoom:false});
-        L.tileLayer('https://{s}.basemaps.cartocdn.com/rastertiles/'+(dark()?'dark_all':'voyager')+'/{z}/{x}/{y}{r}.png',
-          {maxZoom:18,subdomains:'abcd',attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> &copy; <a href="https://carto.com/attributions">CARTO</a>'}).addTo(map);
+        L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png',
+          {maxZoom:19,attribution:'&copy; <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a> contributors'}).addTo(map);
+        if(dark())document.getElementById('map').classList.add('darkmap');
         map.on('zoomend',drawPins);
         refit=true;
       }
