@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261115-xecutive-battle-league-week-18@ukbeybladeevents.github.io
+DTSTAMP:20261112T173615Z
+DTSTART:20261115T140000
+DTEND:20261115T180000
+SUMMARY:Xecutive Battle League · Week 18
+LOCATION:London\, Europa Gaming\, 370 Caledonian Rd\, Islington
+DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8408531-Week-18-151126-Europa-Gaming.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.beybladex.london/store/prod_8408531-Week-18-151126-Europa-Gaming.html
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Xecutive Battle League · Week 18 tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
