@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261205-manchester-siu-mai-cup-ii@ukbeybladeevents.github.io
+DTSTAMP:20261112T080400Z
+DTSTART:20261205T153000
+DTEND:20261205T193000
+SUMMARY:Manchester Siu Mai Cup II
+LOCATION:Salford\, The Angel Centre
+DESCRIPTION:Tickets and details: https://challonge.com/Beybladexukhker\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://challonge.com/Beybladexukhker
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Manchester Siu Mai Cup II tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
