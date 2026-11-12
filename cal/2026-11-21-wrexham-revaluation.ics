@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261121-wrexham-revaluation@ukbeybladeevents.github.io
+DTSTAMP:20261112T163655Z
+DTSTART:20261121T120000
+DTEND:20261121T160000
+SUMMARY:Wrexham Revaluation
+LOCATION:Wrexham\, The Lab\, Eagles Meadow
+DESCRIPTION:Tickets and details: https://challonge.com/tournaments/signup/nzY8FIPsbo\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://challonge.com/tournaments/signup/nzY8FIPsbo
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Wrexham Revaluation tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
