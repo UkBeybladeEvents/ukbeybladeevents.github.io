@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261206-the-monarx-accession@ukbeybladeevents.github.io
+DTSTAMP:20261113T192908Z
+DTSTART:20261206T120000
+DTEND:20261206T160000
+SUMMARY:The MonarX: Accession
+LOCATION:Huddersfield\, Red Sun Collectables
+DESCRIPTION:Tickets and details: https://redsuncollectables.com/products/event-beyblade-x-tournament-the-monarx-accession\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://redsuncollectables.com/products/event-beyblade-x-tournament-the-monarx-accession
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:The MonarX: Accession tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
