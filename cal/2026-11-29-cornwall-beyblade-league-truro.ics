@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261129-cornwall-beyblade-league-truro@ukbeybladeevents.github.io
+DTSTAMP:20261113T194509Z
+DTSTART:20261129T130000
+DTEND:20261129T170000
+SUMMARY:Cornwall Beyblade League · Truro
+LOCATION:Truro\, Piranha Cafe
+DESCRIPTION:Tickets and details: https://www.instagram.com/happypiranha/\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.instagram.com/happypiranha/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Cornwall Beyblade League · Truro tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
