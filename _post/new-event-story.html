@@ -1,0 +1,102 @@
+<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><style>
+body{margin:0}
+.s{position:relative;width:1080px;height:1920px;overflow:hidden;background:#DCE6F5;font-family:'Inter',sans-serif;color:#0B1B3F}
+.band{position:absolute;left:0;right:0;top:0;height:1000px;background:#0B1B3F;clip-path:polygon(0 0,100% 0,100% 90%,0 100%)}
+.red{position:absolute;top:0;bottom:0;right:0;width:520px;background:#C8102E;clip-path:polygon(38% 0,100% 0,100% 100%,0 100%)}
+.logo{position:absolute;left:0;right:0;top:200px;display:flex;justify-content:center}
+.head{position:absolute;left:80px;right:80px;top:590px;color:#FFFFFF}
+.k{font-size:26px;font-weight:800;letter-spacing:8px;color:#FFB3B8}
+.h{font-family:'Inter Display',sans-serif;font-weight:900;font-size:132px;line-height:.88;letter-spacing:-4px;margin-top:14px;transform:skewX(-6deg)}
+.body{position:absolute;left:80px;right:80px;top:1040px;display:flex;flex-direction:column;gap:26px}
+.big{font-family:'Inter Display',sans-serif;font-weight:900;font-size:56px;line-height:1.08;letter-spacing:-1px;text-wrap:balance}
+.big span{color:#C8102E}
+.ev{display:grid;grid-template-columns:120px minmax(0,1fr);gap:30px;align-items:center;padding-bottom:26px;border-bottom:3px solid rgba(11,27,63,.15)}
+.dt{display:flex;flex-direction:column;align-items:flex-start;line-height:1}
+.dt span{font-size:26px;font-weight:800;letter-spacing:4px;color:#C8102E}
+.dt b{font-family:'Inter Display',sans-serif;font-weight:900;font-size:92px;letter-spacing:-3px;color:#0B1B3F}
+.nm{font-family:'Inter Display',sans-serif;font-weight:900;font-size:50px;line-height:1.02;letter-spacing:-1px}
+.mt{font-size:30px;font-weight:600;color:#3A4A6E;margin-top:8px}
+.rule{height:6px;width:120px;background:#C8102E;border-radius:3px}
+.line{font-size:38px;font-weight:700;line-height:1.25}
+.line b{color:#C8102E}
+.sticker{position:absolute;left:140px;right:140px;top:1660px;height:104px;background:#FFFFFF;border-radius:52px;box-shadow:0 6px 18px rgba(11,27,63,.18);display:flex;align-items:center;justify-content:center;gap:16px;font-size:30px;font-weight:800;letter-spacing:.5px;color:#0B1B3F;text-decoration:none}
+.f{position:absolute;left:0;right:0;bottom:100px;text-align:center;font-size:22px;font-weight:600;color:#3A4A6E}
+.dateblk{display:flex;align-items:center;gap:30px}
+.dateblk .dn{font-family:'Inter Display',sans-serif;font-weight:900;font-size:130px;line-height:.85;letter-spacing:-6px;color:#C8102E}
+.dateblk .dw{font-size:34px;font-weight:800;letter-spacing:6px;line-height:1.3}
+.ename{font-family:'Inter Display',sans-serif;font-weight:900;font-size:72px;line-height:1;letter-spacing:-2px}
+.where{font-size:36px;font-weight:600;color:#3A4A6E;line-height:1.3}
+.where b{color:#0B1B3F}
+.chips{display:flex;flex-wrap:wrap;gap:12px}
+.chip{font-size:26px;font-weight:800;letter-spacing:1px;padding:10px 20px;border-radius:30px;background:#0B1B3F;color:#FFFFFF}
+.chip.r{background:#C8102E}
+</style></head><body><!-- "NEW EVENT" STORY (1080x1920): one per newly listed event. Same navy/red look as the Monday Story, headline "NEW EVENT".
+     Edit only: the day number + weekday/month (.dateblk), event name (.ename), "City · Venue" + address + times (.where),
+     3-5 chips (.chip; price last, with class "chip r"), and the one-line note (.line), e.g. booking requirement or FULL.
+     Render: python3 _post/render.py <file> <out.png> 1920 . Also render a plain copy with the .sticker element removed.
+     Keep the note line clear of the button; shorten text rather than shrink fonts. -->
+<div class="s">
+<div class="band"><div class="red"></div></div>
+<div class="logo"><svg id="badge" width="280" height="350" viewBox="0 0 560 700" xmlns="http://www.w3.org/2000/svg">
+  <defs><clipPath id="c"><rect x="24" y="24" width="512" height="652" rx="58"/></clipPath></defs>
+  <rect x="4" y="4" width="552" height="692" rx="72" fill="#FFFFFF"/>
+  <g clip-path="url(#c)">
+    <rect width="560" height="700" fill="#0B1B3F"/>
+    <polygon points="250,0 560,0 560,700 330,700" fill="#C8102E"/>
+
+    <g transform="translate(-44 -14)"><!-- blader behind, leaping towards the viewer's left, launch arm aimed down at the top -->
+    <g stroke="#FFFFFF" stroke-linecap="round" stroke-linejoin="round" fill="none">
+      <path d="M 452 330 L 514 404 L 548 486" stroke-width="48"/>
+      <path d="M 420 336 L 356 384 L 330 452" stroke-width="52"/>
+      <path d="M 366 224 L 304 262 L 258 292" stroke-width="40"/>
+      <path d="M 424 222 L 482 196 L 520 146" stroke-width="38"/>
+      <path d="M 520 146 Q 548 186 540 236" stroke-width="6"/>
+    </g>
+    <g fill="#FFFFFF">
+      <path d="M 338 218 Q 376 190 432 200 Q 458 212 460 240 L 466 330 Q 462 358 428 358 Q 398 358 390 334 Z"/>
+      <circle cx="374" cy="166" r="42"/>
+      <path d="M 382 196 L 414 214 L 392 232 L 366 206 Z"/>
+      <path d="M 334 154 Q 340 120 378 118 L 400 90 L 406 120 L 438 102 L 430 130 L 466 126 L 434 150 L 460 164 L 418 172 Q 392 148 334 154 Z"/>
+      <rect x="208" y="270" width="66" height="44" rx="12" transform="rotate(28 241 292)"/>
+      <path d="M 516 474 L 562 466 L 562 506 L 524 510 Z"/>
+    </g>
+
+    </g>
+    <!-- speed lines from the launcher to the top -->
+    <g stroke="#FFFFFF" stroke-linecap="round" fill="none" opacity=".8">
+      <path d="M 176 318 L 150 360" stroke-width="7"/>
+      <path d="M 206 322 L 188 366" stroke-width="5"/>
+      <path d="M 146 310 L 112 352" stroke-width="5"/>
+    </g>
+
+    <!-- the top, big in the foreground, seen from slightly above (original four-wing blade) -->
+    <g transform="translate(206 470) rotate(-10) scale(0.92)">
+      <path d="M -34 34 L 34 34 L 30 70 L -30 70 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="6"/>
+      <path d="M -22 70 L 22 70 L 6 108 L -6 108 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="6"/>
+      <g transform="scale(1 0.55)">
+        <circle cx="0" cy="46" r="96" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9"/>
+        <path d="M 83.2 -11.7 Q 149.9 5.2 122.3 118.1 Q 101.9 74.1 44.5 71.2 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9" stroke-linejoin="round"/><path d="M 11.7 83.2 Q -5.2 149.9 -118.1 122.3 Q -74.1 101.9 -71.2 44.5 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9" stroke-linejoin="round"/><path d="M -83.2 11.7 Q -149.9 -5.2 -122.3 -118.1 Q -101.9 -74.1 -44.5 -71.2 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9" stroke-linejoin="round"/><path d="M -11.7 -83.2 Q 5.2 -149.9 118.1 -122.3 Q 74.1 -101.9 71.2 -44.5 Z" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9" stroke-linejoin="round"/>
+        <circle r="96" fill="#FFFFFF" stroke="#0B1B3F" stroke-width="9"/>
+        <circle r="50" fill="#0B1B3F"/>
+        <circle r="18" fill="#FFFFFF"/>
+      </g>
+    </g>
+
+    <!-- spin swooshes round the top -->
+    <g fill="none" stroke="#FFFFFF" stroke-linecap="round">
+      <path d="M 40 566 Q 196 620 352 548" stroke-width="9"/>
+      <path d="M 70 600 Q 196 644 326 590" stroke-width="6" opacity=".6"/>
+    </g>
+  </g>
+</svg></div>
+<div class="head"><div class="k">JUST ANNOUNCED</div><div class="h">NEW<br>EVENT</div></div>
+<div class="body" style="gap:24px;top:1010px">
+  <div class="dateblk"><div class="dn">15</div><div class="dw">SUNDAY<br>NOVEMBER</div></div>
+  <div class="ename">Xecutive Battle League · Week 18</div>
+  <div class="where"><b>London</b> · Europa Gaming,<br>370 Caledonian Rd, Islington<br>Check-in 1:30pm · <b>Start 2pm</b></div>
+  <div class="chips"><span class="chip">BX-10</span><span class="chip">3ON3</span><span class="chip">FACTORY RESET FORMAT</span><span class="chip r">£10</span></div>
+  <div class="line" style="font-size:30px">Advance tickets only · WBO username needed</div>
+</div>
+<a class="sticker"><svg width="40" height="40" viewBox="0 0 24 24" fill="none" stroke="#0B1B3F" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 14a4 4 0 0 0 5.7 0l3-3a4 4 0 0 0-5.7-5.7l-1 1"/><path d="M14 10a4 4 0 0 0-5.7 0l-3 3a4 4 0 0 0 5.7 5.7l1-1"/></svg><span>GET TICKETS</span></a>
+<div class="f">Fan-run · not affiliated with Takara Tomy or Hasbro</div>
+</div></body></html>
