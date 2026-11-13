@@ -28,6 +28,26 @@ body{margin:0}
 .list:not(:has(.ev:nth-child(2))) .x{font-size:30px;margin-top:16px}
 .f{position:absolute;left:64px;right:64px;bottom:48px;display:flex;justify-content:space-between;gap:24px;font-size:22px;font-weight:600;color:#3A4A6E}
 .f b{color:#0B1B3F;font-weight:800}
+/* COLOUR THEMES (layout identical; only colours change). Rotate daily so consecutive Today posts never match:
+   theme = ["cream","yellow","red"][(date.toordinal() - date(2026,11,12).toordinal()) % 3]  -> 12 Nov cream, 13 Nov yellow, 14 Nov red ...
+   Set it on the .p element: <div class="p"> (cream), <div class="p t-yellow">, <div class="p t-red">. */
+.t-yellow{background:#FFC72C}
+.t-yellow .k{color:#0B1B3F}
+.t-yellow .h{color:#0B1B3F}
+.t-yellow .day{background:#C8102E}
+.t-yellow .day i{background:#FFFFFF;box-shadow:0 0 0 6px rgba(255,255,255,.35)}
+.t-yellow .ev{border-bottom-color:rgba(11,27,63,.22)}
+.t-yellow .mt,.t-yellow .f{color:#2A2F45}
+.t-red{background:#C8102E;color:#FFFFFF}
+.t-red .k{color:#FFD7DC}
+.t-red .h{color:#FFFFFF}
+.t-red .day{background:#0B1B3F}
+.t-red .tm{color:#FFFFFF;border-color:#0B1B3F}
+.t-red .ev{border-bottom-color:rgba(255,255,255,.25)}
+.t-red .mt{color:#FFD7DC}
+.t-red .x{color:#0B1B3F}
+.t-red .f{color:#FFD7DC}
+.t-red .f b{color:#FFFFFF}
 </style></head><body>
 <!-- EVENT-DAY "TODAY" FEED POST (1080x1350). Cream background, giant red TODAY, navy date strip, time-led rows.
      Deliberately unlike Monday (navy/red band, big date numbers) and Thursday (ticket stubs).
