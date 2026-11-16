@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261206-spring-roll-x-beyblade-meet-eat@ukbeybladeevents.github.io
+DTSTAMP:20261116T060919Z
+DTSTART:20261206T130000
+DTEND:20261206T170000
+SUMMARY:Spring Roll X · Beyblade Meet & Eat
+LOCATION:Hull\, Hong Kong Station\, Cottingham Rd
+DESCRIPTION:Tickets and details: https://www.instagram.com/shayd_beyblade/\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.instagram.com/shayd_beyblade/
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Spring Roll X · Beyblade Meet & Eat tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
