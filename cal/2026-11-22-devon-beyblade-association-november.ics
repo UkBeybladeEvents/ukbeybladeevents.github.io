@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261122-devon-beyblade-association-november@ukbeybladeevents.github.io
+DTSTAMP:20261118T222101Z
+DTSTART:20261122T140000
+DTEND:20261122T180000
+SUMMARY:Devon Beyblade Association · November
+LOCATION:Torquay\, St Anne's Hall
+DESCRIPTION:Tickets and details: https://challonge.com/ngs14a1q\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://challonge.com/ngs14a1q
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Devon Beyblade Association · November tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
