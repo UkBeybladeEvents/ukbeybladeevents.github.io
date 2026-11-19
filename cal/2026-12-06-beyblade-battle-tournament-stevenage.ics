@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261206-beyblade-battle-tournament-stevenage@ukbeybladeevents.github.io
+DTSTAMP:20261119T091221Z
+DTSTART:20261206T100000
+DTEND:20261206T140000
+SUMMARY:Beyblade Battle Tournament · Stevenage
+LOCATION:Stevenage\, Lost Ark Games\, 29 Market Place
+DESCRIPTION:Tickets and details: https://www.eventbrite.co.uk/e/beyblade-battle-tournament-stevenage-tickets-2004962481755\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.eventbrite.co.uk/e/beyblade-battle-tournament-stevenage-tickets-2004962481755
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Beyblade Battle Tournament · Stevenage tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR

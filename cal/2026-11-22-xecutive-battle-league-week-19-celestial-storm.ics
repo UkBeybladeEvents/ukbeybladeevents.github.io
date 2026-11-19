@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261122-xecutive-battle-league-week-19-celestial-storm@ukbeybladeevents.github.io
+DTSTAMP:20261119T091221Z
+DTSTART:20261122T110000
+DTEND:20261122T150000
+SUMMARY:Xecutive Battle League Week 19 · Celestial Storm
+LOCATION:London\, Paloma Chelsea\, South Kensington
+DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8408531-Week-19-221126-Paloma-Chelsea.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.beybladex.london/store/prod_8408531-Week-19-221126-Paloma-Chelsea.html
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Xecutive Battle League Week 19 · Celestial Storm tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
