@@ -1,0 +1,20 @@
+BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//UK Beyblade Events//EN
+CALSCALE:GREGORIAN
+BEGIN:VEVENT
+UID:20261129-xecutive-battle-league-week-xx-3-blade-city-crew-battle@ukbeybladeevents.github.io
+DTSTAMP:20261120T204320Z
+DTSTART:20261129T123000
+DTEND:20261129T163000
+SUMMARY:Xecutive Battle League Week XX · 3-Blade City Crew Battle
+LOCATION:London\, FreePlayCity\, 199 Eade Road\, Haringey
+DESCRIPTION:Tickets and details: https://bladers.xyz/tickets\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://bladers.xyz/tickets
+BEGIN:VALARM
+TRIGGER:-P1D
+ACTION:DISPLAY
+DESCRIPTION:Xecutive Battle League Week XX · 3-Blade City Crew Battle tomorrow
+END:VALARM
+END:VEVENT
+END:VCALENDAR
