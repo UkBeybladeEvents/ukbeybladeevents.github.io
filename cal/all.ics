@@ -6,98 +6,23 @@ X-WR-CALNAME:UK Beyblade Events
 REFRESH-INTERVAL;VALUE=DURATION:PT12H
 X-PUBLISHED-TTL:PT12H
 BEGIN:VEVENT
-UID:20261121-beyblade-battle-tournament@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
-DTSTART:20261121T120000
-DTEND:20261121T160000
-SUMMARY:Beyblade Battle Tournament
-LOCATION:London\, Christ's College Finchley
-DESCRIPTION:Tickets and details: https://www.eventbrite.co.uk/e/beyblade-battle-tournament-london-tickets-2003516983230\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://www.eventbrite.co.uk/e/beyblade-battle-tournament-london-tickets-2003516983230
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Beyblade Battle Tournament tomorrow
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:20261121-dominion-beyblade-x-scotland@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
-DTSTART:20261121T120000
-DTEND:20261121T160000
-SUMMARY:Dominion · Beyblade X Scotland
-LOCATION:Ayr\, Dominion\, 135 Main St
-DESCRIPTION:Tickets and details: https://www.tickettailor.com/events/beybladexscotland/2522777\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://www.tickettailor.com/events/beybladexscotland/2522777
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Dominion · Beyblade X Scotland tomorrow
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:20261121-croydonia-tournament-10@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
-DTSTART:20261121T113000
-DTEND:20261121T153000
-SUMMARY:Croydonia Tournament 10
-LOCATION:Wallington\, The Scout Hall\, 24A Guy Road
-DESCRIPTION:Tickets and details: https://challonge.com/tournaments/signup/3eqzeIFsYu\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://challonge.com/tournaments/signup/3eqzeIFsYu
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Croydonia Tournament 10 tomorrow
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:20261121-blader-alliance-casual-team-tournament@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
-DTSTART:20261121T120000
-DTEND:20261121T160000
-SUMMARY:Blader Alliance · Casual Team Tournament
-LOCATION:Norwich\, NorwichVR\, 89 Oak St
-DESCRIPTION:Tickets and details: https://www.norfolkbladers.co.uk/events/casual-tournament-blader-alliance\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://www.norfolkbladers.co.uk/events/casual-tournament-blader-alliance
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Blader Alliance · Casual Team Tournament tomorrow
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:20261121-wrexham-revaluation@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
-DTSTART:20261121T120000
-DTEND:20261121T160000
-SUMMARY:Wrexham Revaluation
-LOCATION:Wrexham\, The Lab\, Eagles Meadow
-DESCRIPTION:Tickets and details: https://challonge.com/tournaments/signup/nzY8FIPsbo\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://challonge.com/tournaments/signup/nzY8FIPsbo
-BEGIN:VALARM
-TRIGGER:-P1D
-ACTION:DISPLAY
-DESCRIPTION:Wrexham Revaluation tomorrow
-END:VALARM
-END:VEVENT
-BEGIN:VEVENT
-UID:20261122-xecutive-battle-league-week-19-celestial-storm@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+UID:20261122-xecutive-battle-league-week-19-back-to-beysics@ukbeybladeevents.github.io
+DTSTAMP:20261122T072550Z
 DTSTART:20261122T110000
 DTEND:20261122T150000
-SUMMARY:Xecutive Battle League Week 19 · Celestial Storm
+SUMMARY:Xecutive Battle League Week 19 · Back to Beysics
 LOCATION:London\, Paloma Chelsea\, South Kensington
-DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8408531-Week-19-221126-Paloma-Chelsea.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://www.beybladex.london/store/prod_8408531-Week-19-221126-Paloma-Chelsea.html
+DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8408531-221126-Week-19-Back-to-Beysics-Paloma-Chelsea.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.beybladex.london/store/prod_8408531-221126-Week-19-Back-to-Beysics-Paloma-Chelsea.html
 BEGIN:VALARM
 TRIGGER:-P1D
 ACTION:DISPLAY
-DESCRIPTION:Xecutive Battle League Week 19 · Celestial Storm tomorrow
+DESCRIPTION:Xecutive Battle League Week 19 · Back to Beysics tomorrow
 END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261122-bristol-bladers-2nd-birthday-competitive-week@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261122T121500
 DTEND:20261122T161500
 SUMMARY:Bristol Bladers 2nd Birthday · Competitive Week
@@ -112,7 +37,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261122-beymingham-bladers-final-shot@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261122T133000
 DTEND:20261122T173000
 SUMMARY:Beymingham Bladers · Final Shot
@@ -127,7 +52,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261122-devon-beyblade-association-november@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261122T140000
 DTEND:20261122T180000
 SUMMARY:Devon Beyblade Association · November
@@ -142,7 +67,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261122-bbxc-x-storm@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261122T160000
 DTEND:20261122T200000
 SUMMARY:BBXC X-Storm
@@ -157,7 +82,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261127-spin-n-sip@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261127T180000
 DTEND:20261127T220000
 SUMMARY:Spin 'n' Sip
@@ -172,7 +97,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261128-irish-pub-point-brawl@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261128T130000
 DTEND:20261128T170000
 SUMMARY:Irish Pub Point Brawl
@@ -187,7 +112,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261128-beyblade-battle-network-tournament@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261128T143000
 DTEND:20261128T183000
 SUMMARY:Beyblade Battle Network Tournament
@@ -202,7 +127,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261129-xecutive-battle-league-week-xx-3-blade-city-crew-battle@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261129T123000
 DTEND:20261129T163000
 SUMMARY:Xecutive Battle League Week XX · 3-Blade City Crew Battle
@@ -217,7 +142,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261129-kingofbraves-x-beybladexukhker@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261129T133000
 DTEND:20261129T173000
 SUMMARY:KingOfBraves x Beybladexukhker
@@ -232,7 +157,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261129-sheffield-kids-episode-2@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261129T120000
 DTEND:20261129T160000
 SUMMARY:Sheffield Kids Episode 2
@@ -247,7 +172,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261129-cornwall-beyblade-league-truro@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261129T130000
 DTEND:20261129T170000
 SUMMARY:Cornwall Beyblade League · Truro
@@ -262,7 +187,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261205-beybladex-u14s-december@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261205T103000
 DTEND:20261205T143000
 SUMMARY:BeybladeX U14s December
@@ -277,7 +202,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261205-beybladex-december@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261205T123000
 DTEND:20261205T163000
 SUMMARY:BeybladeX December
@@ -292,7 +217,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261205-newcastle-infernos-december-tournament@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261205T123000
 DTEND:20261205T163000
 SUMMARY:Newcastle Infernos · December Tournament
@@ -307,7 +232,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261205-manchester-siu-mai-cup-ii@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261205T153000
 DTEND:20261205T193000
 SUMMARY:Manchester Siu Mai Cup II
@@ -322,7 +247,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261206-beyblade-battle-tournament-stevenage@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261206T100000
 DTEND:20261206T140000
 SUMMARY:Beyblade Battle Tournament · Stevenage
@@ -337,7 +262,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261206-the-monarx-accession@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261206T120000
 DTEND:20261206T160000
 SUMMARY:The MonarX: Accession
@@ -352,7 +277,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261206-spring-roll-x-beyblade-meet-eat@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261206T130000
 DTEND:20261206T170000
 SUMMARY:Spring Roll X · Beyblade Meet & Eat
@@ -367,7 +292,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261212-inazuma-at-rng-beyblade-x-scotland@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261212T120000
 DTEND:20261212T160000
 SUMMARY:Inazuma at RNG · Beyblade X Scotland
@@ -382,7 +307,7 @@ END:VALARM
 END:VEVENT
 BEGIN:VEVENT
 UID:20261212-dojo-battle-the-four-kings-challenge-ii@ukbeybladeevents.github.io
-DTSTAMP:20261120T204320Z
+DTSTAMP:20261122T072550Z
 DTSTART:20261212T143000
 DTEND:20261212T183000
 SUMMARY:Dojo Battle: The Four Kings Challenge II
