@@ -4,13 +4,13 @@ PRODID:-//UK Beyblade Events//EN
 CALSCALE:GREGORIAN
 BEGIN:VEVENT
 UID:20261127-spin-n-sip@ukbeybladeevents.github.io
-DTSTAMP:20261122T072550Z
+DTSTAMP:20261123T074659Z
 DTSTART:20261127T180000
 DTEND:20261127T220000
 SUMMARY:Spin 'n' Sip
 LOCATION:London\, Kiju Coffee House\, Battersea
-DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8414052-Kiju-Coffee-House-Spin-n-Sip-271126.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
-URL:https://www.beybladex.london/store/prod_8414052-Kiju-Coffee-House-Spin-n-Sip-271126.html
+DESCRIPTION:Tickets and details: https://www.beybladex.london/store/prod_8414052-271126-Spin-n-Sip-Kiju-Coffee-House.html\nEnd time is a guess. Check the organiser's page.\nListed by UK Beyblade Events
+URL:https://www.beybladex.london/store/prod_8414052-271126-Spin-n-Sip-Kiju-Coffee-House.html
 BEGIN:VALARM
 TRIGGER:-P1D
 ACTION:DISPLAY
